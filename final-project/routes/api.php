@@ -31,7 +31,13 @@ Route::middleware('auth:api')->get('email/resend', [VerificationController::clas
 
 Route::prefix('tournaments')->controller(TournamentController::class)->group(function() {
     Route::get('/all', 'all');
-    Route::get('/{id}', 'getById');
+    Route::get('/get/{id}', 'getById');
     Route::post('/create', 'create');
-    Route::post('/edit/{id}', 'edit');
+    Route::put('/edit/{id}', 'edit');
+    Route::get('/organizing', 'organizing');
+});
+
+Route::prefix('tournaments')->controller(TournamentRegistrationController::class)->group(function() {
+    Route::post('/register/{id}', 'register');
+    Route::get('/participating', 'participating');
 });

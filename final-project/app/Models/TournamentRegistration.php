@@ -9,10 +9,10 @@ class TournamentRegistration extends Pivot
 {
     use HasFactory;
 
+    protected $table = 'tournament_registrations';
+
     protected $fillable = [
         'rank',
         'license',
-    ];
-
-
+    ];    
 }

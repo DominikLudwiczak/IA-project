@@ -255,12 +255,28 @@
                     "Tournaments"
                 ],
                 "operationId": "allTournaments",
+                "parameters": [
+                    {
+                        "name": "page",
+                        "in": "query",
+                        "description": "Page number",
+                        "required": false,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
                 "responses": {
                     "200": {
                         "description": "Get all tournaments",
                         "content": {
                             "application/json": {
-                                "schema": {}
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/Tournament"
+                                    }
+                                }
                             }
                         }
                     }
@@ -272,7 +288,7 @@
                 ]
             }
         },
-        "/api/tournaments/{id}": {
+        "/api/tournaments/get/{id}": {
             "get": {
                 "tags": [
                     "Tournaments"
@@ -294,7 +310,9 @@
                         "description": "Get specific tournaments",
                         "content": {
                             "application/json": {
-                                "schema": {}
+                                "schema": {
+                                    "$ref": "#/components/schemas/TournamentDetails"
+                                }
                             }
                         }
                     }
@@ -317,41 +335,7 @@
                     "content": {
                         "application/json": {
                             "schema": {
-                                "required": [
-                                    "name",
-                                    "time",
-                                    "registration_time",
-                                    "max_participants",
-                                    "latitude",
-                                    "longitude",
-                                    "discipline_id"
-                                ],
-                                "properties": {
-                                    "name": {
-                                        "type": "string"
-                                    },
-                                    "time": {
-                                        "type": "string",
-                                        "format": "date-time"
-                                    },
-                                    "registration_time": {
-                                        "type": "string",
-                                        "format": "date-time"
-                                    },
-                                    "max_participants": {
-                                        "type": "integer"
-                                    },
-                                    "latitude": {
-                                        "type": "number"
-                                    },
-                                    "longitude": {
-                                        "type": "number"
-                                    },
-                                    "discipline_id": {
-                                        "type": "integer"
-                                    }
-                                },
-                                "type": "object"
+                                "$ref": "#/components/schemas/TournamentRequest"
                             }
                         }
                     }
@@ -374,7 +358,7 @@
             }
         },
         "/api/tournaments/edit/{id}": {
-            "post": {
+            "put": {
                 "tags": [
                     "Tournaments"
                 ],
@@ -395,41 +379,7 @@
                     "content": {
                         "application/json": {
                             "schema": {
-                                "required": [
-                                    "name",
-                                    "time",
-                                    "registration_time",
-                                    "max_participants",
-                                    "latitude",
-                                    "longitude",
-                                    "discipline_id"
-                                ],
-                                "properties": {
-                                    "name": {
-                                        "type": "string"
-                                    },
-                                    "time": {
-                                        "type": "string",
-                                        "format": "date-time"
-                                    },
-                                    "registration_time": {
-                                        "type": "string",
-                                        "format": "date-time"
-                                    },
-                                    "max_participants": {
-                                        "type": "integer"
-                                    },
-                                    "latitude": {
-                                        "type": "number"
-                                    },
-                                    "longitude": {
-                                        "type": "number"
-                                    },
-                                    "discipline_id": {
-                                        "type": "integer"
-                                    }
-                                },
-                                "type": "object"
+                                "$ref": "#/components/schemas/TournamentRequest"
                             }
                         }
                     }
@@ -440,6 +390,140 @@
                         "content": {
                             "application/json": {
                                 "schema": {}
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearer_token": []
+                    }
+                ]
+            }
+        },
+        "/api/tournaments/organizing": {
+            "get": {
+                "tags": [
+                    "Tournaments"
+                ],
+                "operationId": "allTournamentsOrganizing",
+                "parameters": [
+                    {
+                        "name": "page",
+                        "in": "query",
+                        "description": "Page number",
+                        "required": false,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Get all tournaments taht user is organizing",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/Tournament"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearer_token": []
+                    }
+                ]
+            }
+        },
+        "/api/tournaments/register/{id}": {
+            "post": {
+                "tags": [
+                    "Tournaments"
+                ],
+                "operationId": "registerForTournament",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Tournament id",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "rank",
+                                    "license"
+                                ],
+                                "properties": {
+                                    "rank": {
+                                        "type": "integer"
+                                    },
+                                    "license": {
+                                        "type": "string"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Registered for Tournament",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearer_token": []
+                    }
+                ]
+            }
+        },
+        "/api/tournaments/participating": {
+            "get": {
+                "tags": [
+                    "Tournaments"
+                ],
+                "operationId": "allTournamentsParticipating",
+                "parameters": [
+                    {
+                        "name": "page",
+                        "in": "query",
+                        "description": "Page number",
+                        "required": false,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Get all tournaments that user is taking part in",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/Tournament"
+                                    }
+                                }
                             }
                         }
                     }
@@ -524,6 +608,138 @@
         }
     },
     "components": {
+        "schemas": {
+            "Discipline": {
+                "title": "Discipline",
+                "description": "Discipline model",
+                "required": [
+                    "id",
+                    "name"
+                ],
+                "properties": {
+                    "id": {
+                        "title": "Id",
+                        "description": "Id",
+                        "type": "integer",
+                        "example": 1
+                    },
+                    "name": {
+                        "title": "Name",
+                        "description": "Name",
+                        "type": "string",
+                        "example": "Football"
+                    }
+                },
+                "type": "object"
+            },
+            "Tournament": {
+                "title": "Tournament",
+                "description": "Tournament model",
+                "required": [
+                    "id"
+                ],
+                "type": "object",
+                "allOf": [
+                    {
+                        "$ref": "#/components/schemas/TournamentRequest"
+                    },
+                    {
+                        "properties": {
+                            "id": {
+                                "title": "Id",
+                                "description": "Id",
+                                "type": "integer",
+                                "example": 1
+                            }
+                        },
+                        "type": "object"
+                    }
+                ]
+            },
+            "TournamentDetails": {
+                "title": "TournamentDetails",
+                "description": "TournamentDetails model",
+                "required": [
+                    "discipline"
+                ],
+                "type": "object",
+                "allOf": [
+                    {
+                        "$ref": "#/components/schemas/Tournament"
+                    },
+                    {
+                        "properties": {
+                            "discipline": {
+                                "$ref": "#/components/schemas/Discipline"
+                            }
+                        },
+                        "type": "object"
+                    }
+                ]
+            },
+            "TournamentRequest": {
+                "title": "TournamentRequest",
+                "description": "Store Tournament request body data",
+                "required": [
+                    "name",
+                    "time",
+                    "registration_time",
+                    "max_participants",
+                    "latitude",
+                    "longitude",
+                    "discipline_id"
+                ],
+                "properties": {
+                    "name": {
+                        "title": "Name",
+                        "description": "Name of the tournament",
+                        "type": "string",
+                        "example": "A nice tournament"
+                    },
+                    "time": {
+                        "title": "Time",
+                        "description": "Time of the tournament",
+                        "type": "string",
+                        "format": "date-time",
+                        "example": "2021-05-05 12:00"
+                    },
+                    "registration_time": {
+                        "title": "Registration time",
+                        "description": "Registration time of the tournament",
+                        "type": "string",
+                        "format": "date-time",
+                        "example": "2021-05-05 12:00"
+                    },
+                    "max_participants": {
+                        "title": "Max participants",
+                        "description": "Max participants of the tournament",
+                        "type": "integer",
+                        "example": "10"
+                    },
+                    "latitude": {
+                        "title": "Latitude",
+                        "description": "Latitude of the tournament",
+                        "type": "number",
+                        "format": "double",
+                        "example": "52.123456"
+                    },
+                    "longitude": {
+                        "title": "Longitude",
+                        "description": "Longitude of the tournament",
+                        "type": "number",
+                        "format": "double",
+                        "example": "4.123456"
+                    },
+                    "discipline_id": {
+                        "title": "Discipline id",
+                        "description": "Discipline id of the tournament",
+                        "type": "integer",
+                        "example": "1"
+                    }
+                },
+                "type": "object"
+            }
+        },
         "securitySchemes": {
             "bearer_token": {
                 "type": "http",

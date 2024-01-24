@@ -25,18 +25,18 @@ class Tournament extends Model
         'registrationTime' => 'datetime',
     ];
 
-    public function discipline(): BelongsTo
+    public function discipline()
     {
         return $this->belongsTo(Discipline::class);
     }
 
-    public function organizer(): BelongsTo
+    public function organizer()
     {
         return $this->belongsTo(User::class, 'organizer_id');
     }
 
-    public function participants(): BelongsToMany
+    public function participants()
     {
-      return $this->belongsToMany(User::class)->using(TournamentRegistration::class);
+      return $this->belongsToMany(User::class, 'tournament_registrations')->using(TournamentRegistration::class)->withTimestamps();
     }
 }

@@ -13,7 +13,7 @@ class Discipline extends Model
         'name',
     ];
 
-    public function tournaments(): HasMany
+    public function tournaments()
     {
         return $this->hasMany(Tournament::class);
     }

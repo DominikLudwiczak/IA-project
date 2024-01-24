@@ -63,8 +63,8 @@ class User extends Authenticatable implements JWTSubject, MustVerifyEmail
       return $this->hasMany(Tournament::class, 'organizer_id');
     }
 
-    public function registrations(): BelongsToMany
+    public function takingpart()
     {
-      return $this->belongsToMany(Tournament::class)->using(TournamentRegistration::class);
+      return $this->belongsToMany(Tournament::class, 'tournament_registrations')->using(TournamentRegistration::class)->withTimestamps();
     }
 }
