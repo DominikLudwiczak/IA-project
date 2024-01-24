@@ -1,0 +1,12 @@
+<app-navbar *ngIf="isLogedIn" [drawer]="drawer"></app-navbar>
+<app-not-login-navbar *ngIf="!isLogedIn"></app-not-login-navbar>
+<mat-drawer-container class="app-container">
+    <mat-drawer mode="side" opened class="sidenav" #drawer [ngStyle]="{'display': isLogedIn ? 'block' : 'none'}">
+        <app-sidenav></app-sidenav>
+    </mat-drawer>
+    <mat-drawer-content>
+        <div class="container">
+            <router-outlet></router-outlet>
+        </div>
+    </mat-drawer-content>
+</mat-drawer-container>

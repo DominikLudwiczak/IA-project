@@ -1,0 +1,8 @@
+<div *ngIf="!loading" class="card" [ngClass]="'card-'+responseType">
+    <h1 class="card-header" *ngIf="responseType=='error'">Ooops, something went wrong!</h1>
+    <h1 class="card-header" *ngIf="responseType=='success'">Congratulations!</h1>
+    <h2>{{responseMessage}}</h2>
+
+    <button mat-raised-button color="primary" (click)="resendEmailConfirmation()" *ngIf="responseType=='error'">Resend Email Confirmation</button>
+    <button mat-raised-button color="primary" (click)="goToApp()" *ngIf="responseType=='success'">Go to the application</button>
+</div>

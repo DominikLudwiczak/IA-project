@@ -1,0 +1,20 @@
+<app-alert *ngIf="showAlert" [type]="responseType" [message]="responseMessage" (isOpened)="showAlert=$event"></app-alert>
+
+<form class="form" [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+    <h1 style="margin-bottom: 2rem;">Login</h1>
+
+    <mat-form-field>
+        <mat-label>Login</mat-label>
+        <input matInput type="text" formControlName="login" placeholder="Login"/>
+    </mat-form-field>
+
+    <mat-form-field>
+        <mat-label>Password</mat-label>
+        <input matInput type="password" formControlName="password" placeholder="Password"/>
+    </mat-form-field>
+    
+    <button mat-raised-button color="primary" [disabled]="!isFormValid() || loading" [class.loading]="loading">Login</button>
+
+    <span style="margin-top: 1rem;">Don't have an account?<button type="button" mat-button color="primary" [routerLink]="['/register']">Register here</button></span>
+    <span>Forgot password? <button type="button" mat-button color="primary" [routerLink]="['/forgot-password']">Click here</button></span>
+</form>

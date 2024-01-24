@@ -1,0 +1,17 @@
+<div class="navbar">
+    <button type="button" mat-button (click)="drawer.toggle()">
+        <mat-icon id="menu-icon">menu</mat-icon>
+    </button>
+
+    <div [matMenuTriggerFor]="menu" class="user">
+        Hello, {{user.firstName}}
+        <div class="user-icon">
+            <mat-icon>person</mat-icon>
+        </div>        
+    </div>
+    <mat-menu #menu="matMenu" xPosition="before">
+        <button mat-menu-item (click)="logout()">Logout</button>
+        <mat-divider></mat-divider>
+        <button mat-menu-item [routerLink]="['settings/change-password']">Change password</button>
+      </mat-menu>
+</div>

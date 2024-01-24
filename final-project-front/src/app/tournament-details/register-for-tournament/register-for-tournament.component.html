@@ -1,0 +1,29 @@
+<div *ngIf="!isLogged; else loggedIn">
+    <h1 mat-dialog-title>You need to be logged in to register for this tournament!</h1>
+    <div mat-dialog-actions>
+        <button mat-stroked-button color="basic" (click)="close()">Close</button>
+        <button mat-raised-button color="primary" [routerLink]="'/login'">Login here</button>
+    </div>
+</div>
+
+
+<ng-template #loggedIn>
+    <h1 mat-dialog-title>Register for this tournament!</h1>
+    <div mat-dialog-content>
+        <form class="form" [formGroup]="registerRequest">
+            <mat-form-field>
+                <mat-label>Rank</mat-label>
+                <input matInput type="number" formControlName="rank" placeholder="Rank"/>
+            </mat-form-field>
+
+            <mat-form-field>
+                <mat-label>License number</mat-label>
+                <input matInput type="text" formControlName="license" placeholder="License number"/>
+            </mat-form-field>
+        </form>
+    </div>
+    <div mat-dialog-actions>
+    <button mat-stroked-button color="warn" (click)="close()">No</button>
+    <button mat-stroked-button color="primary" (click)="register()" [disabled]="loading || !registerRequest.valid">Yes</button>
+    </div>
+</ng-template>
