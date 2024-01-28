@@ -23,7 +23,7 @@
         </form>
     </div>
     <div mat-dialog-actions>
-    <button mat-stroked-button color="warn" (click)="close()">No</button>
-    <button mat-stroked-button color="primary" (click)="register()" [disabled]="loading || !registerRequest.valid">Yes</button>
+        <button mat-stroked-button color="warn" (click)="close()">Close</button>
+        <button mat-stroked-button color="primary" (click)="register()" [disabled]="loading || !registerRequest.valid">Register</button>
     </div>
 </ng-template>

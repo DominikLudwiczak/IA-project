@@ -249,6 +249,117 @@
                 ]
             }
         },
+        "/api/disciplines/all": {
+            "get": {
+                "tags": [
+                    "Disciplines"
+                ],
+                "operationId": "allDisciplines",
+                "responses": {
+                    "200": {
+                        "description": "Get all disciplines",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "App\\Virtual\\Models\\Dicipline"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearer_token": []
+                    }
+                ]
+            }
+        },
+        "/api/ladder/{tournamentId}": {
+            "get": {
+                "tags": [
+                    "Ladder"
+                ],
+                "operationId": "ladderForTournament",
+                "parameters": [
+                    {
+                        "name": "tournamentId",
+                        "in": "path",
+                        "description": "Tournament id",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Get ladder for giver tournament",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/Ladder"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearer_token": []
+                    }
+                ]
+            }
+        },
+        "/api/ladder/{ladderId}": {
+            "post": {
+                "tags": [
+                    "Ladder"
+                ],
+                "operationId": "rateLadder",
+                "parameters": [
+                    {
+                        "name": "ladderId",
+                        "in": "path",
+                        "description": "Ladder id",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/LadderRateRequest"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Rate Ladder",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearer_token": []
+                    }
+                ]
+            }
+        },
         "/api/tournaments/all": {
             "get": {
                 "tags": [
@@ -263,6 +374,15 @@
                         "required": false,
                         "schema": {
                             "type": "integer"
+                        }
+                    },
+                    {
+                        "name": "filterName",
+                        "in": "query",
+                        "description": "Filter by name",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
                         }
                     }
                 ],
@@ -463,7 +583,6 @@
                         "application/json": {
                             "schema": {
                                 "required": [
-                                    "rank",
                                     "license"
                                 ],
                                 "properties": {
@@ -632,6 +751,41 @@
                 },
                 "type": "object"
             },
+            "Ladder": {
+                "title": "Ladder",
+                "description": "Ladder model",
+                "required": [
+                    "id",
+                    "tournament",
+                    "participant1",
+                    "participant2",
+                    "winner_id"
+                ],
+                "properties": {
+                    "id": {
+                        "title": "Id",
+                        "description": "Id",
+                        "type": "integer",
+                        "example": 1
+                    },
+                    "tournament": {
+                        "$ref": "#/components/schemas/Tournament"
+                    },
+                    "participant1": {
+                        "$ref": "#/components/schemas/User"
+                    },
+                    "participant2": {
+                        "$ref": "#/components/schemas/User"
+                    },
+                    "winner_id": {
+                        "title": "WinnerId",
+                        "description": "Winner id",
+                        "type": "integer",
+                        "example": 1
+                    }
+                },
+                "type": "object"
+            },
             "Tournament": {
                 "title": "Tournament",
                 "description": "Tournament model",
@@ -671,11 +825,69 @@
                         "properties": {
                             "discipline": {
                                 "$ref": "#/components/schemas/Discipline"
+                            },
+                            "numOfRankedParticipants": {
+                                "title": "NumberOfRankedParticipants",
+                                "description": "Number of ranked participants",
+                                "type": "integer"
                             }
                         },
                         "type": "object"
                     }
                 ]
+            },
+            "User": {
+                "title": "User",
+                "description": "User model",
+                "required": [
+                    "id",
+                    "firstName",
+                    "lastName",
+                    "email"
+                ],
+                "properties": {
+                    "id": {
+                        "title": "Id",
+                        "description": "Id",
+                        "type": "integer",
+                        "example": 1
+                    },
+                    "firstName": {
+                        "title": "FirstName",
+                        "description": "First name",
+                        "type": "string",
+                        "example": "John"
+                    },
+                    "lastName": {
+                        "title": "LastName",
+                        "description": "Last name",
+                        "type": "string",
+                        "example": "Smith"
+                    },
+                    "email": {
+                        "title": "Email",
+                        "description": "Email",
+                        "type": "string",
+                        "example": "john.smith@gamil.com"
+                    }
+                },
+                "type": "object"
+            },
+            "LadderRateRequest": {
+                "title": "LadderRateRequest",
+                "description": "Rate the game in given ladder",
+                "required": [
+                    "winner_id"
+                ],
+                "properties": {
+                    "winner_id": {
+                        "title": "WinnerId",
+                        "description": "Winner id",
+                        "type": "integer",
+                        "example": "1"
+                    }
+                },
+                "type": "object"
             },
             "TournamentRequest": {
                 "title": "TournamentRequest",

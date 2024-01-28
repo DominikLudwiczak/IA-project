@@ -22,4 +22,14 @@ class TournamentDetails extends Tournament
      * @var Discipline
     */
     private $discipline;
+
+    /**
+     * @OA\Property(
+     *     title="NumberOfRankedParticipants",
+     *     description="Number of ranked participants",
+     * )
+     * 
+     * @var integer
+    */
+    private $numOfRankedParticipants;
 }

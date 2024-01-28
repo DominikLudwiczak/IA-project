@@ -1,10 +1,11 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { CommonModule, DatePipe } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AlertComponent } from './alert/alert.component';
 import { ConfirmComponent } from './confirm/confirm.component';
+import { MaterialsModule } from '../materials/materials.module';
 
 
 
@@ -18,7 +19,8 @@ import { ConfirmComponent } from './confirm/confirm.component';
     CommonModule,
     HttpClientModule,    
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    MaterialsModule
   ],
   exports: [
     BrowserModule,
@@ -28,6 +30,9 @@ import { ConfirmComponent } from './confirm/confirm.component';
     ReactiveFormsModule,
     AlertComponent,
     ConfirmComponent
+  ],
+  providers: [
+    DatePipe
   ]
 })
 export class SharedModule { }

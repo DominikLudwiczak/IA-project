@@ -18,6 +18,9 @@ export class DashboardComponent implements OnInit {
       let token = this.AuthService.getToken();
       if(this.isLogedIn && token) {
         this.AuthService.setUser(token);
+        if(!this.AuthService.loggedUser().isTokenActive()) {
+          this.AuthService.logout();
+        }
       }
     }
   }

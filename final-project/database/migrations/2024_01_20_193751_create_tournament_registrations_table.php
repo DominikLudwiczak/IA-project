@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->bigInteger('tournament_id')->unsigned();
             $table->bigInteger('user_id')->unsigned();
-            $table->integer('rank');
+            $table->integer('rank')->nullable();
             $table->string('license');
             $table->timestamps();
 

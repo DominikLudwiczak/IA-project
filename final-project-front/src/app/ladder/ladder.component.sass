@@ -1,0 +1,51 @@
+.board
+    display: flex
+    flex-wrap: wrap
+
+.game
+    display: flex
+    margin: 1rem
+    align-items: center
+    background-color: #E1E1E1
+    -webkit-box-shadow: 2px 3px 3px -2px rgba(66, 68, 90, 1)
+    -moz-box-shadow: 2px 3px 3px -2px rgba(66, 68, 90, 1)
+    box-shadow: 2px 3px 3px -2px rgba(66, 68, 90, 1)
+
+.divider
+    margin: 0 1rem
+
+.participant
+    display: flex
+    flex-direction: column
+    align-items: center
+    justify-content: center
+    padding: .7rem
+    min-width: 4vw
+    color: white
+
+.looser
+    background-color: rgba(236, 25, 25, 0.8)
+
+.winner
+    background-color: rgba(0, 153, 0, 0.7)
+
+.can-edit
+    cursor: pointer
+    // border: 1px solid black
+
+.not-rated
+    color: black
+
+.divider
+    height: 100%
+    margin: 0
+    display: flex
+    align-items: center
+
+.looser-winner
+    background-image: linear-gradient(to right, rgba(236, 25, 25, 0.8) , rgba(0, 153, 0, 0.7))
+    color: white
+
+.winner-looser
+    background-image: linear-gradient(to right, rgba(0, 153, 0, 0.7), rgba(236, 25, 25, 0.8))
+    color: white

@@ -14,6 +14,8 @@ import { AllTournamentsComponent } from './all-tournaments/all-tournaments.compo
 import { UserTournamentsComponent } from './user-tournaments/user-tournaments.component';
 import { AddEditTournamentComponent } from './user-tournaments/add-edit-tournament/add-edit-tournament.component';
 import { TournamentDetailsComponent } from './tournament-details/tournament-details.component';
+import { ParticipatingTournamentsComponent } from './participating-tournaments/participating-tournaments.component';
+import { LadderComponent } from './ladder/ladder.component';
 
 const routes: Routes = [
   {
@@ -35,8 +37,10 @@ const routes: Routes = [
   {
     path: 'app', canActivate: [AuthGuardService, EmailVerifiedGuardService], component: DashboardComponent, children: [
       { path: 'tournaments', component: UserTournamentsComponent },
+      { path: 'participant', component: ParticipatingTournamentsComponent },
       { path: 'tournaments/add', component: AddEditTournamentComponent },
       { path: 'tournaments/edit/:id', component: AddEditTournamentComponent },
+      { path: 'participant/ladder/:id', component: LadderComponent },
       {
         path: 'settings', children: [
           { path: 'change-password', component: ChangePasswordComponent },

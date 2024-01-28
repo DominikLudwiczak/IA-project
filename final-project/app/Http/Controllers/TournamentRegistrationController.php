@@ -33,7 +33,7 @@ class TournamentRegistrationController extends Controller
      *          mediaType="application/json",
      *          @OA\Schema(
      *             type="object",
-     *             required={"rank", "license"},
+     *             required={"license"},
      *             @OA\Property(property="rank", type="integer"),
      *             @OA\Property(property="license", type="string"),
      *          ),
@@ -44,7 +44,7 @@ class TournamentRegistrationController extends Controller
      */
     public function register(Request $request, $id){
         $request->validate([
-            'rank' => 'required|integer|min:1',
+            'rank' => 'integer|min:1|nullable',
             'license' => 'required|string|max:255',
         ]);
 
@@ -121,7 +121,7 @@ class TournamentRegistrationController extends Controller
         Paginator::currentPageResolver(function () use ($currentPage) {
             return $currentPage;
         });
-        $tournaments = $user->takingpart()->paginate(10);
+        $tournaments = $user->takingpart()->orderBy('time')->paginate(10);
 
         return response()->json([
             'status' => 'sucess',

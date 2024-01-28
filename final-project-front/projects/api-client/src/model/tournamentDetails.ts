@@ -49,5 +49,9 @@ export interface TournamentDetails {
      */
     id: number;
     discipline: Discipline;
+    /**
+     * Number of ranked participants
+     */
+    numOfRankedParticipants?: number;
 }
 

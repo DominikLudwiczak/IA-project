@@ -98,7 +98,7 @@ class TournamentRequest extends FormRequest
         return [
             'name' => 'required|string|max:255',
             'time' => 'required|date_format:Y-m-d H:i|after:now',
-            'registration_time' => 'required|date_format:Y-m-d H:i|before:time',
+            'registration_time' => 'required|date_format:Y-m-d H:i|before:time|after:now',
             'max_participants' => 'required|integer|min:1',
             'latitude' => 'required|numeric|regex:/^\d+(\.\d{2,})?$/',
             'longitude' => 'required|numeric|regex:/^\d+(\.\d{2,})?$/',

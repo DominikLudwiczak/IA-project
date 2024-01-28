@@ -11,7 +11,7 @@ const loginErrorTimeoutSec: number = 3;
   styleUrls: ['./login.component.sass']
 })
 export class LoginComponent implements OnInit{
-  public loading: boolean = false;
+  loading: boolean = false;
   showAlert: boolean = false;
   responseType: string = "";
   responseMessage: string = "";

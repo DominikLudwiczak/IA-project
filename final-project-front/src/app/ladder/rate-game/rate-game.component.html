@@ -1,0 +1,16 @@
+<h1 mat-dialog-title>Who won this game?</h1>
+<div mat-dialog-content>
+    <form class="form" [formGroup]="rateLadderRequest">
+        <mat-form-field>
+            <mat-label>Winner</mat-label>
+            <select matNativeControl formControlName="winner_id">
+                <option [value]="ladder.participant1.id">{{ladder.participant1.firstName}} {{ladder.participant1.lastName}} ({{ladder.participant1.email}})</option>
+                <option [value]="ladder.participant2.id">{{ladder.participant2.firstName}} {{ladder.participant2.lastName}} ({{ladder.participant2.email}})</option>
+              </select>
+        </mat-form-field>
+    </form>
+</div>
+<div mat-dialog-actions>
+    <button mat-stroked-button color="warn" (click)="close()">Close</button>
+    <button mat-stroked-button color="primary" (click)="rate()" [disabled]="loading || !rateLadderRequest.valid">Register</button>
+</div>

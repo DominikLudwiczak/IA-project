@@ -1,0 +1,27 @@
+<app-alert *ngIf="showAlert" [type]="responseType" [message]="responseMessage" (isOpened)="showAlert=$event"></app-alert>
+
+<mat-card *ngIf="!loading">
+    <mat-card-header>
+        <mat-card-title>
+            <div class="row">
+                <button mat-icon-button color="primary" [routerLink]="'/app/participant'"><mat-icon>arrow_back_ios</mat-icon></button>
+                <h2 style="margin: 0;">Ladder board</h2>
+            </div>
+        </mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+        <div class="board">
+            <div class="game" *ngFor="let game of ladder; let i = index" [ngClass]="game.can_edit && game.winner_id == null ? 'can-edit' : ''" (click)="rate(game)">
+                <div class="participant" [ngClass]="game.winner_id == null ? 'not-rated' : game.winner_id == game.participant1.id ? 'looser' : 'winner'">
+                    <span>{{game.participant1.firstName}}</span>
+                    <span>{{game.participant1.lastName}}</span>
+                </div>
+                <div class="divider" [ngClass]="game.winner_id == null ? 'not-rated' : game.winner_id == game.participant1.id ? 'looser-winner' : 'winner-looser'">vs</div>
+                <div class="participant" [ngClass]="game.winner_id == null ? 'not-rated' : game.winner_id == game.participant2.id ? 'looser' : 'winner'">
+                    <span>{{game.participant2.firstName}}</span>
+                    <span>{{game.participant2.lastName}}</span>
+                </div>
+            </div>
+        </div>
+    </mat-card-content>
+</mat-card>

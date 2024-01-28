@@ -99,18 +99,23 @@ export class TournamentsClientService {
 
     /**
      * @param page Page number
+     * @param filterName Filter by name
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public allTournaments(page?: number, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<Array<Tournament>>;
-    public allTournaments(page?: number, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<HttpResponse<Array<Tournament>>>;
-    public allTournaments(page?: number, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<HttpEvent<Array<Tournament>>>;
-    public allTournaments(page?: number, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<any> {
+    public allTournaments(page?: number, filterName?: string, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<Array<Tournament>>;
+    public allTournaments(page?: number, filterName?: string, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<HttpResponse<Array<Tournament>>>;
+    public allTournaments(page?: number, filterName?: string, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<HttpEvent<Array<Tournament>>>;
+    public allTournaments(page?: number, filterName?: string, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<any> {
 
         let localVarQueryParameters = new HttpParams({encoder: this.encoder});
         if (page !== undefined && page !== null) {
           localVarQueryParameters = this.addToHttpParams(localVarQueryParameters,
             <any>page, 'page');
+        }
+        if (filterName !== undefined && filterName !== null) {
+          localVarQueryParameters = this.addToHttpParams(localVarQueryParameters,
+            <any>filterName, 'filterName');
         }
 
         let localVarHeaders = this.defaultHeaders;

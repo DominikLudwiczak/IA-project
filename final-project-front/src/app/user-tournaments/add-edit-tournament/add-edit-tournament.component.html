@@ -1,4 +1,6 @@
-<mat-card *ngIf="!loading">
+<app-alert *ngIf="showAlert" [type]="responseType" [message]="responseMessage" (isOpened)="showAlert=$event"></app-alert>
+
+<mat-card *ngIf="!loading" style="width: 60%; margin: 0 auto;">
     <mat-card-header>
         <mat-card-title>
             <div class="row">
@@ -11,9 +13,67 @@
         </mat-card-title>
     </mat-card-header>
     <mat-card-content>
-        
+        <form class="form" [formGroup]="tournamentForm">
+            <div class="part">
+                <mat-form-field>
+                    <mat-label>Name</mat-label>
+                    <input matInput type="text" formControlName="name" placeholder="Name"/>
+                </mat-form-field>
+
+                <mat-form-field>
+                    <mat-label>Choose tournament date</mat-label>
+                    <input matInput [matDatepicker]="picker" [(ngModel)]="date" [min]="today"
+                        (ngModelChange)="changeDateTime()" [ngModelOptions]="{standalone: true}">
+                    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                    <mat-datepicker #picker></mat-datepicker>
+                </mat-form-field>
+
+                <mat-form-field>
+                    <mat-label>Choose tournament time</mat-label>
+                    <input matInput type="time" [(ngModel)]="time" (ngModelChange)="changeDateTime()" [ngModelOptions]="{standalone: true}"/>
+                </mat-form-field>
+
+                <mat-form-field>
+                    <mat-label>Latitude</mat-label>
+                    <input matInput type="number" formControlName="latitude" placeholder="Latitude"/>
+                </mat-form-field>
+
+                <mat-form-field>
+                    <mat-label>Discipline</mat-label>
+                    <mat-select formControlName="discipline_id" placeholder="Discipline">
+                        <mat-option *ngFor="let discipline of disciplines" [value]="discipline.id">
+                            {{discipline.name}}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+            <div class="part">
+                <mat-form-field>
+                    <mat-label>Max amount of participants</mat-label>
+                    <input matInput type="number" formControlName="max_participants" placeholder="Max amount of participants"/>
+                </mat-form-field>
+
+                <mat-form-field>
+                    <mat-label>Choose registration deadline date</mat-label>
+                    <input matInput [matDatepicker]="regPicker" [(ngModel)]="regDate" [min]="today" [max]="date"
+                        (ngModelChange)="changeDateTime(true)" [ngModelOptions]="{standalone: true}">
+                    <mat-datepicker-toggle matSuffix [for]="regPicker"></mat-datepicker-toggle>
+                    <mat-datepicker #regPicker></mat-datepicker>
+                </mat-form-field>
+
+                <mat-form-field>
+                    <mat-label>Choose registration deadline time</mat-label>
+                    <input matInput type="time" [(ngModel)]="regTime" (ngModelChange)="changeDateTime(true)" [ngModelOptions]="{standalone: true}"/>
+                </mat-form-field>
+
+                <mat-form-field>
+                    <mat-label>Longitude</mat-label>
+                    <input matInput type="number" formControlName="longitude" placeholder="Longitude"/>
+                </mat-form-field>
+            </div>
+        </form>
     </mat-card-content>
     <mat-card-actions>
-        
+        <button mat-raised-button color="primary" [disabled]="loading || !tournamentForm.valid" (click)="send()">{{inEditMode ? "Save" : "Add"}}</button>
     </mat-card-actions>
 </mat-card>

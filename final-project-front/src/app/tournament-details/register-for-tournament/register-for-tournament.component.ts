@@ -16,7 +16,7 @@ export class RegisterForTournamentComponent {
   alert: any = new EventEmitter<any>();
 
   registerRequest: FormGroup = new FormGroup({
-    rank: new FormControl('', [Validators.required, Validators.min(1)]),
+    rank: new FormControl('', [Validators.min(1)]),
     license: new FormControl('', [Validators.required]),
   });
 

@@ -25,6 +25,9 @@ import { AddEditTournamentComponent } from './user-tournaments/add-edit-tourname
 import { NotLoginNavbarComponent } from './navigation/not-login-navbar/not-login-navbar.component';
 import { TournamentDetailsComponent } from './tournament-details/tournament-details.component';
 import { RegisterForTournamentComponent } from './tournament-details/register-for-tournament/register-for-tournament.component';
+import { ParticipatingTournamentsComponent } from './participating-tournaments/participating-tournaments.component';
+import { LadderComponent } from './ladder/ladder.component';
+import { RateGameComponent } from './ladder/rate-game/rate-game.component';
 
 @NgModule({
   declarations: [
@@ -44,6 +47,9 @@ import { RegisterForTournamentComponent } from './tournament-details/register-fo
     NotLoginNavbarComponent,
     TournamentDetailsComponent,
     RegisterForTournamentComponent,
+    ParticipatingTournamentsComponent,
+    LadderComponent,
+    RateGameComponent,
   ],
   imports: [
     AppRoutingModule,

@@ -1,3 +1,7 @@
+<mat-form-field style="width: 30%;">
+  <input matInput [(ngModel)]="filter" placeholder="Find tournament by name" (ngModelChange)="getTournaments()"/>
+</mat-form-field>
+
 <table mat-table [dataSource]="dataSource" class="mat-elevation-z8" *ngIf="!loading">
     <ng-container matColumnDef="index">
         <th mat-header-cell *matHeaderCellDef>#</th>
@@ -11,22 +15,17 @@
 
     <ng-container matColumnDef="time">
         <th mat-header-cell *matHeaderCellDef>Tournament date</th>
-        <td mat-cell *matCellDef="let element"> {{element.time | date:'YYYY-MM-dd HH:mm'}} </td>
+        <td mat-cell *matCellDef="let element"> {{element.time | date:'dd.MM.YYYY HH:mm'}} </td>
       </ng-container>
 
       <ng-container matColumnDef="registration_time">
-        <th mat-header-cell *matHeaderCellDef>Register due date</th>
-        <td mat-cell *matCellDef="let element"> {{element.registration_time | date:'YYYY-MM-dd HH:mm'}} </td>
+        <th mat-header-cell *matHeaderCellDef>Register deadline</th>
+        <td mat-cell *matCellDef="let element"> {{element.registration_time | date:'dd.MM.YYYY HH:mm'}} </td>
       </ng-container>
 
       <ng-container matColumnDef="max_participants">
         <th mat-header-cell *matHeaderCellDef>Max # of participants</th>
         <td mat-cell *matCellDef="let element"> {{element.max_participants}} </td>
-      </ng-container>
-
-      <ng-container matColumnDef="discipline_id">
-        <th mat-header-cell *matHeaderCellDef>Discipline</th>
-        <td mat-cell *matCellDef="let element"> {{element.discipline_id}} </td>
       </ng-container>
   
       <ng-container matColumnDef="actions">
@@ -48,5 +47,4 @@
             (page)="pageChanged($event)"
             aria-label="Select page">
 </mat-paginator>
-  
   

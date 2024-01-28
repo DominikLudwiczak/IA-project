@@ -14,5 +14,5 @@ class TournamentRegistration extends Pivot
     protected $fillable = [
         'rank',
         'license',
-    ];    
+    ];
 }

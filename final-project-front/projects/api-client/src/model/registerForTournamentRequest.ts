@@ -12,7 +12,7 @@
 
 
 export interface RegisterForTournamentRequest { 
-    rank: number;
+    rank?: number;
     license: string;
 }
 

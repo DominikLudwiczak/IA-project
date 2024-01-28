@@ -30,6 +30,13 @@ class TournamentController extends Controller
      *         required=false,
      *         @OA\Schema(type="integer")
      *     ),
+     *     @OA\Parameter(
+     *         name="filterName",
+     *         in="query",
+     *         description="Filter by name",
+     *         required=false,
+     *         @OA\Schema(type="string")
+     *     ),
      *     @OA\Response(response="200",
      *          description="Get all tournaments",
      *          @OA\JsonContent(
@@ -44,8 +51,8 @@ class TournamentController extends Controller
         Paginator::currentPageResolver(function () use ($currentPage) {
             return $currentPage;
         });
-        
-        $tournaments = Tournament::paginate(10);
+
+        $tournaments = Tournament::where('name', 'like', "%$request->filterName%")->orderBy('time')->paginate(10);
 
         return response()->json([
             'status' => 'success',
@@ -74,7 +81,8 @@ class TournamentController extends Controller
      * )
      */
     public function getById($id){
-        $tournament = Tournament::find($id)->with('discipline')->first();
+        $tournament = Tournament::with('discipline')->whereId($id)->first();
+        $tournament->numOfRankedParticipants = $tournament->participants()->where('rank', '!=', null)->count();
 
         return response()->json([
             'status' => 'success',
@@ -199,7 +207,7 @@ class TournamentController extends Controller
         Paginator::currentPageResolver(function () use ($currentPage) {
             return $currentPage;
         });
-        $tournaments = $user->tournaments()->paginate(10);
+        $tournaments = $user->tournaments()->orderBy('time')->paginate(10);
 
         return response()->json([
             'status' => 'sucess',

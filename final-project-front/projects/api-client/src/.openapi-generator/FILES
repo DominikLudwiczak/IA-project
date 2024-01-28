@@ -4,6 +4,8 @@ README.md
 api.module.ts
 api/api.ts
 api/authentication.service.ts
+api/disciplines.service.ts
+api/ladder.service.ts
 api/password.service.ts
 api/tournaments.service.ts
 api/verifyEmail.service.ts
@@ -13,6 +15,8 @@ git_push.sh
 index.ts
 model/changePasswordRequest.ts
 model/discipline.ts
+model/ladder.ts
+model/ladderRateRequest.ts
 model/loginRequest.ts
 model/models.ts
 model/registerForTournamentRequest.ts
@@ -22,5 +26,6 @@ model/resetPasswordStoreRequest.ts
 model/tournament.ts
 model/tournamentDetails.ts
 model/tournamentRequest.ts
+model/user.ts
 param.ts
 variables.ts

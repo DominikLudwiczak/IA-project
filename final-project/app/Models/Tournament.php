@@ -14,7 +14,6 @@ class Tournament extends Model
         'time',
         'registration_time',
         'max_participants',
-        'ranked_players',
         'latitude',
         'longitude',
         'discipline_id',
@@ -38,5 +37,10 @@ class Tournament extends Model
     public function participants()
     {
       return $this->belongsToMany(User::class, 'tournament_registrations')->using(TournamentRegistration::class)->withTimestamps();
+    }
+
+    public function ladders()
+    {
+        return $this->hasMany(Ladder::class);
     }
 }

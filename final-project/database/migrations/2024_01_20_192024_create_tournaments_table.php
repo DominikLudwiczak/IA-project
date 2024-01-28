@@ -17,7 +17,6 @@ return new class extends Migration
             $table->dateTime('time', 0);
             $table->dateTime('registration_time', 0);
             $table->integer('max_participants');
-            $table->integer('ranked_players')->default(0);
             $table->double('latitude');
             $table->double('longitude');
             $table->bigInteger('organizer_id')->unsigned();
@@ -36,5 +35,6 @@ return new class extends Migration
     public function down(): void
     {
         Schema::dropIfExists('tournaments');
+        \DB::unprepared('DROP TRIGGER IF EXISTS create_ladder_trigger');
     }
 };

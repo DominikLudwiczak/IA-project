@@ -9,9 +9,10 @@ import { Tournament } from 'projects/api-client/src/model/tournament';
 })
 export class AllTournamentsComponent implements OnInit {
     loading = false;
-    displayedColumns: string[] = ['index', 'name', 'time', 'registration_time', 'max_participants', 'discipline_id', 'actions'];
+    displayedColumns: string[] = ['index', 'name', 'time', 'registration_time', 'max_participants', 'actions'];
     dataSource: Tournament[] = [];
     paginationResponse: any;
+    filter: string;
 
     constructor(private TournamentsClientService: TournamentsClientService) { }
 
@@ -21,7 +22,7 @@ export class AllTournamentsComponent implements OnInit {
 
     getTournaments(page: number = 1) {
       this.loading = true;
-      this.TournamentsClientService.allTournaments(page=page).subscribe((res: any) => {
+      this.TournamentsClientService.allTournaments(page=page, this.filter).subscribe((res: any) => {
         this.paginationResponse = res.data;
         this.dataSource = this.paginationResponse.data as Tournament[];
       }, err => {
